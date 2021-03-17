@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 require('dotenv').config();
 const escape = require('./escape');
-const env = require('./env');
+// const env = require('./env');
 
 app.use(express.json());
 app.use(function (req, res, next) {
