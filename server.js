@@ -2,21 +2,19 @@ const express = require('express');
 const app = express();
 let port = process.env.PORT || 3000;
 const mysql = require('mysql');
-const cors = require('cors');
 require('dotenv').config();
 const escape = require('./escape');
-// const env = require('./env');
 
 app.use(express.json());
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Content-Type, Authorization, Content-Length, X-Requested-With'
   );
   next();
 });
-app.use(cors());
 
 const db_config = {
   host: 'us-cdbr-east-03.cleardb.com',
@@ -254,6 +252,5 @@ app.get('/deleteOption', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(env);
   console.log(`server running at ${port}`);
 });
