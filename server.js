@@ -18,7 +18,12 @@ app.use(function (req, res, next) {
 });
 app.use(cors());
 
-const db_config = env;
+const db_config = {
+  host: 'us-cdbr-east-03.cleardb.com',
+  user: 'b546cec8ff3a45',
+  password: 'd66d8e9c',
+  database: 'heroku_bcf5e28610cc6b3',
+};
 
 let connection;
 
