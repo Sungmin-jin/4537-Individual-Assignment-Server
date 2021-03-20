@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 let port = process.env.PORT || 3000;
 const mysql = require('mysql');
-require('dotenv').config();
 const escape = require('./escape');
+const env = require('./env');
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -16,12 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const db_config = {
-  host: 'us-cdbr-east-03.cleardb.com',
-  user: 'b546cec8ff3a45',
-  password: 'd66d8e9c',
-  database: 'heroku_bcf5e28610cc6b3',
-};
+const db_config = env;
 
 let connection;
 
