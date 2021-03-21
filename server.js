@@ -135,6 +135,9 @@ app.post('/admin/questions', (req, res) => {
       }
       response = JSON.stringify(result);
       for (let option of req.body.options) {
+        if (option.detail === null) {
+          continue;
+        }
         const newQuery = `INSERT INTO heroku_bcf5e28610cc6b3.\`option\` (detail, questionId, isAnswer) VALUES('${escape(
           option.detail
         )}', ${result.insertId}, ${option.isAnswer ? 'TRUE' : 'FALSE'});`;
@@ -170,10 +173,8 @@ app.put('/admin/questions', (req, res) => {
     }
     console.log(req.body.options);
     for (let option of req.body.options) {
-      // let checksql = 'SELECT FROM '
-
       let newSql;
-      if (option.id == null) {
+      if (option.id == null && detail !== '') {
         newSql = `INSERT INTO heroku_bcf5e28610cc6b3.\`option\` (detail, questionId, isAnswer) VALUES('${escape(
           option.detail
         )}', ${req.body.questionId}, ${option.isAnswer ? 'TRUE' : 'FALSE'});`;
