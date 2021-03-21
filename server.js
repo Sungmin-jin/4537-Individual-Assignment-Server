@@ -3,7 +3,7 @@ const app = express();
 let port = process.env.PORT || 3000;
 const mysql = require('mysql');
 const escape = require('./escape');
-const env = require('./env');
+// const env = require('./env');
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -130,7 +130,6 @@ app.post('/admin/questions', (req, res) => {
   const sql = `INSERT INTO question (content, quizId) VALUES ("${escape(
     req.body.content
   )}", ${req.body.quizId})`;
-  let response;
   try {
     connection.query(sql, async (err, result) => {
       if (err) {
@@ -138,7 +137,6 @@ app.post('/admin/questions', (req, res) => {
         res.json({ status: false });
         throw err;
       }
-      response = JSON.stringify(result);
       for (let option of req.body.options) {
         if (option.detail === null) {
           continue;
@@ -152,8 +150,6 @@ app.post('/admin/questions', (req, res) => {
             res.json({ status: false });
             throw error;
           }
-
-          response += JSON.stringify(result2);
         });
       }
       res.json({ status: true });
