@@ -3,7 +3,6 @@ const app = express();
 let port = process.env.PORT || 3000;
 const mysql = require('mysql');
 const escape = require('./escape');
-// const env = require('./env');
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -175,7 +174,7 @@ app.put('/admin/questions', (req, res) => {
     console.log(req.body.options);
     for (let option of req.body.options) {
       let newSql;
-      if (option.id == null && detail !== '') {
+      if (option.id == null && option.detail !== '') {
         newSql = `INSERT INTO heroku_bcf5e28610cc6b3.\`option\` (detail, questionId, isAnswer) VALUES('${escape(
           option.detail
         )}', ${req.body.questionId}, ${option.isAnswer ? 'TRUE' : 'FALSE'});`;
